@@ -9,12 +9,12 @@ import {
 import { useDisclosure } from "@mantine/hooks";
 import Link from "next/link";
 import { IconMoon, IconSun } from "@tabler/icons-react";
-import { usePathname } from "next/navigation";
 import { useEffect } from "react";
 import { Menu } from "@/components/Menu/Menu";
+import { useRouter } from "next/router";
 
 export default function AppLayout({ children }: { children: React.ReactNode }) {
-  const pathname = usePathname();
+  const router = useRouter();
   const { setColorScheme, colorScheme } = useMantineColorScheme();
   const [mobileOpened, { toggle: toggleMobile }] = useDisclosure();
   const [desktopOpened, { toggle: toggleDesktop }] = useDisclosure(true);
@@ -23,11 +23,20 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
     if (mobileOpened) {
       toggleMobile();
     }
-  }, [pathname]);
+  }, [router.pathname]);
 
-  const excludeStartPathname = ["/login", "/pdf"];
+  const excludeStartPathname = [
+    "/login",
+    "/pdf/quotation/[id]",
+    "/pdf/boq/[id]",
+    "/pdf/summary/[id]",
+    "/pdf/document/contract/[id]",
+    "/pdf/document/invoice/[id]",
+    "/pdf",
+    "/auth/sign-in"
+  ];
 
-  if (excludeStartPathname.includes(pathname)) {
+  if (excludeStartPathname.includes(router.pathname)) {
     return <>{children}</>;
   }
 
@@ -56,7 +65,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
             size="sm"
           />
           <Link href={"/"}>
-            <div className="text-xl font-bold">Construction Planner</div>
+            <div className="text-xl font-bold">BuildWise</div>
           </Link>
         </Group>
         {/* {colorScheme === "dark" ? (
@@ -69,7 +78,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
           </ActionIcon>
         )} */}
       </AppShell.Header>
-      <AppShell.Navbar p="sm">
+      <AppShell.Navbar>
         <Menu />
       </AppShell.Navbar>
       <AppShell.Main>{children}</AppShell.Main>

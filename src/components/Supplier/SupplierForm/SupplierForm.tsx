@@ -15,6 +15,7 @@ interface Props {
   type: "create" | "edit";
   onFinish?: (data: SupplierSchemaType) => void;
   data?: SupplierSchemaType;
+  isLoading?: boolean;
 }
 
 export default function SupplierForm(props: Props) {
@@ -79,7 +80,7 @@ export default function SupplierForm(props: Props) {
       <ControlledThailandAddress
         control={control as unknown as Control<AddressSchemaType>}
       />
-      <Button type="submit">
+      <Button loading={props.isLoading} type="submit">
         {props.type === "create" ? "สร้าง" : "บันทึก"}
       </Button>
     </form>

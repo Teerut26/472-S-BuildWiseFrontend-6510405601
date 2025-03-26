@@ -10,7 +10,6 @@ import clsx from "clsx";
 interface ControlledSelectProps<T extends FieldValues> {
   control: Control<T>;
   name: Path<T>;
-  className?: string;
   props?: SelectProps;
 }
 
@@ -25,7 +24,6 @@ const ControlledSelect = <T extends FieldValues>(
       render={({ field: { onChange, value }, fieldState: { error } }) => {
         return (
           <Select
-            className={clsx(props.className)}
             error={error?.message}
             onChange={onChange}
             value={value}

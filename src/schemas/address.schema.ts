@@ -3,7 +3,7 @@ import { z } from "zod";
 export const addressSchema = z.object({
   address: z
     .string({ required_error: "กรุณากรอกที่อยู่" })
-    .min(1, "กรุณากรอกที่อยู่").optional(),
+    .min(1, "กรุณากรอกที่อยู่"),
   subdistrict: z
     .string({ required_error: "กรุณากรอกตำบลหรือแขวง" })
     .min(1, "กรุณากรอกตำบลหรือแขวง"),

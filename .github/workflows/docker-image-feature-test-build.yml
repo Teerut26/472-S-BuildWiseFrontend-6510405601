@@ -1,0 +1,20 @@
+name: Docker Image Feature Test Build
+
+on:
+  push:
+    branches: ["feature/*"]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions: write-all
+    steps:
+      - name: Get Time
+        id: time
+        uses: josStorer/get-current-time@v2
+        with:
+          format: DD/MM/YYYY HH:mm
+          timezone: Asia/Bangkok
+      - uses: actions/checkout@v3
+      - name: Build Test
+        run: docker build -t ${{ secrets.DOCKER_USERNAME }}/buildwise:test --build-arg NEXT_PUBLIC_BUILD_MESSAGE="${{ steps.time.outputs.formattedTime }}" .

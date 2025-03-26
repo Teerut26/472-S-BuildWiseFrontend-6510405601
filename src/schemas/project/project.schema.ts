@@ -9,17 +9,7 @@ export const projectSchema = z
     project_details: z
       .string({ required_error: "กรุณากรอกรายละเอียดโครงการ" })
       .min(1, "กรุณากรอกรายละเอียดโครงการ"),
-    // project_start_date: z.date({
-    //   required_error: "กรุณาเลือกวันที่เริ่มต้น",
-    //   invalid_type_error: "กรุณาเลือกวันที่เริ่มต้น",
-    // }),
-    // project_end_date: z.date({
-    //   required_error: "กรุณาเลือกวันที่สิ้นสุด",
-    //   invalid_type_error: "กรุณาเลือกวันที่สิ้นสุด",
-    // }),
-    // contract_url: z
-    //   .string({ required_error: "กรุณากรอก URL สัญญา" })
-    //   .url({ message: "ประเภท URL ไม่ถูกต้อง" }),
+    client_id: z.string({ required_error: "กรุณาเลือกลูกค้า" }).optional(),
   })
   .merge(addressSchema);
 

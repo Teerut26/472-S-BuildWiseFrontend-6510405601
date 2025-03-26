@@ -14,10 +14,10 @@ export const clientSchema = z.object({
       return /((0)(\d{1,2}\d{3}\d{4}))/gm.test(value);
     }, "กรุณากรอกเบอร์โทรให้ถูกต้อง"),
   tax_id: z
-    .string({ required_error: "กรุณากรอกเลขบัตรประชาชน" })
+    .string({ required_error: "กรุณากรอกเลขประจำตัวผู้เสียภาษี" })
     .refine((value) => {
       return value.length === 13;
-    }, "กรุณากรอกเลขบัตรประชาชนให้ถูกต้อง"),
+    }, "กรุณากรอกเลขประจำตัวผู้เสียภาษีให้ถูกต้อง"),
 }).merge(addressSchema);
 
 export type ClientSchemaType = z.infer<typeof clientSchema>;
