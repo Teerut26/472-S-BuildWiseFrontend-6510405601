@@ -4,11 +4,10 @@ import getContractByProject, {
 import { useQuery } from "@tanstack/react-query";
 
 const useGetContractByProject = (
-  props: GetContractByProjectProps,
-  counter?: number,
+  props: GetContractByProjectProps
 ) => {
   return useQuery({
-    queryKey: ["useGetContractByProject", props.project_id, counter],
+    queryKey: ["useGetContractByProject", props.project_id],
     queryFn: () => getContractByProject(props),
     enabled: !!props.project_id,
   });

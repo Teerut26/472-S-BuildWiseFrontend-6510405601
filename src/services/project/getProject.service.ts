@@ -25,9 +25,12 @@ export interface Client {
   updated_at: string;
 }
 
+export type GetProjectResponse = Data;
+
 export type GetProjectProps = {
   id: string;
 };
+
 
 const getProject = async (props?: GetProjectProps) => {
   try {

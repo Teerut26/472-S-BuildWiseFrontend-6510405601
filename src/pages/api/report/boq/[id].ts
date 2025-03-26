@@ -25,7 +25,10 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
   await page.setViewport({ width: 1000, height: 0 });
 
-  await page.goto(`${process.env.NEXTAUTH_URL}/pdf/boq/${boq_id}?user_id=${user_id}`, {
+  const url = new URL(`/pdf/boq/${boq_id}`, process.env.NEXTAUTH_URL);
+  url.searchParams.append("user_id", user_id ?? "");
+
+  await page.goto(url.toString(), {
     waitUntil: "networkidle2",
   });
 

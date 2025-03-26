@@ -25,7 +25,7 @@ export default function BoqReport(
   );
 
   return (
-    <div className="a4-horizontal relative flex flex-col p-5 text-[14px]">
+    <div className="relative flex flex-col text-[14px]">
       <div>
         {/* Header */}
         <div className="flex justify-between">

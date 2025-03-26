@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Anuphan:wght@100..700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@100..900&family=Sarabun:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap");
 
 @tailwind base;
 @tailwind components;
@@ -8,36 +8,32 @@
 
 @layer base {
   html {
-    font-family: "Anuphan", sans-serif;
+    font-family: "Noto Sans Thai", serif;
     font-optical-sizing: auto;
   }
 }
 
-.a4-vertical {
-  letter-spacing: -0.04em;
-  width: 21cm;
-  height: 29.7cm;
-  margin: 0 auto;
-  box-shadow: 0 0 0.5cm rgba(0, 0, 0, 0.5);
-  margin-bottom: 0.5cm;
-}
-
-.a4-horizontal {
-  letter-spacing: -0.04em;
-  width: 29.7cm;
-  height: 21cm;
-  margin: 0 auto;
-  box-shadow: 0 0 0.5cm rgba(0, 0, 0, 0.5);
-  margin-bottom: 0.5cm;
+.sarabun-regular {
+  font-family: "Sarabun", serif;
+  font-weight: 400;
+  font-style: normal;
 }
 
 @media print {
-  .a4-vertical,
-  .a4-horizontal {
-    box-shadow: none;
-    margin-bottom: 0;
+
+  @page {
+    margin-left: 10mm;
+    margin-right: 10mm;
+    margin-top: 5mm;
+    margin-bottom: 5mm;
   }
+  
   .page-break {
-    page-break-before: always;
+    page-break-before: always; /* ใช้สำหรับเบราว์เซอร์เก่า */
+    break-before: page; /* ใช้สำหรับเบราว์เซอร์ใหม่ */
+  }
+  .page-break-auto {
+    break-inside: avoid; /* ป้องกันไม่ให้เนื้อหาโดนตัดกลางหน้า */
+    page-break-inside: avoid; /* รองรับเบราว์เซอร์เก่า */
   }
 }

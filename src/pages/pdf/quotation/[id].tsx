@@ -49,7 +49,7 @@ export default function Quotation(
   };
 
   return (
-    <div className="a4-vertical relative flex flex-col p-7 text-[14px]">
+    <div className="relative flex flex-col text-[14px]">
       <div>
         <div className="flex items-start justify-between">
           <div>

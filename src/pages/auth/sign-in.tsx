@@ -38,12 +38,14 @@ export default function SignIn(
           ref={username}
           label="Username"
           name="username"
+          defaultValue={"new_user"}
           placeholder="Username"
         />
         <PasswordInput
           ref={password}
           name="password"
           label="Password"
+          defaultValue={"secure_password"}
           placeholder="Password"
         />
         <Button type="submit">Sign In</Button>

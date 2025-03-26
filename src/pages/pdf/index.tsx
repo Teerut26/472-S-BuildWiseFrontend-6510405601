@@ -18,7 +18,7 @@ export default function Index() {
     </Table.Tr>
   ));
   return (
-    <div className="a4-horizontal flex flex-col p-5 text-[14px]">
+    <div className="flex flex-col text-[14px]">
       <div className="flex justify-between">
         <div className="flex w-full flex-col">
           <div className="mb-3 flex flex-col text-xl font-bold uppercase text-blue-400">

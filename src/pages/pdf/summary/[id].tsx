@@ -39,7 +39,7 @@ export default function Quotation(
   const getOverviewProject = useGetOverviewProject({ id: props.id ?? "" });
   const getSummaryProject = useGetSummaryProject({ id: props.id ?? "" });
   return (
-    <div className="a4-horizontal relative flex flex-col p-7 text-[14px]">
+    <div className="relative flex flex-col text-[14px]">
       <div className="flex flex-col gap-3">
         <Card withBorder>
           <div className="flex justify-between">

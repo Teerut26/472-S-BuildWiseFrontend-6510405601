@@ -67,10 +67,10 @@ export default function ProjectForm(props: Props) {
           props={{
             label: "ลูกค้า",
             placeholder: "กรุณาเลือกลูกค้า",
-            data: getClientsApi.data?.data.clients.map((client) => ({
+            data: getClientsApi.data?.data.clients?.map((client) => ({
               label: client.name,
               value: client.id,
-            })),
+            })) ?? [],
             searchable: true,
             withAsterisk: true,
             className: "w-full",

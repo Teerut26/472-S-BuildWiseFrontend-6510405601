@@ -12,6 +12,8 @@ interface Data {
   is_new: boolean;
 }
 
+export type GetCompanyByUserResponse = Data;
+
 export type GetCompanyByUserProps = {
   user_id: string;
 };

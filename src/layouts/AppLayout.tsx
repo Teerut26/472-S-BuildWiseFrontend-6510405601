@@ -30,6 +30,8 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
     "/pdf/quotation/[id]",
     "/pdf/boq/[id]",
     "/pdf/summary/[id]",
+    "/pdf/document/contract/[id]",
+    "/pdf/document/invoice/[id]",
     "/pdf",
     "/auth/sign-in"
   ];

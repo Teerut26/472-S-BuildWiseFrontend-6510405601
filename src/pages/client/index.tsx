@@ -2,10 +2,14 @@ import {
   Badge,
   Button,
   Drawer,
+  Group,
   Menu,
   MultiSelect,
+  NumberFormatter,
   rem,
+  Skeleton,
   Text,
+  TextInput,
   UnstyledButton,
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
@@ -13,10 +17,11 @@ import {
   IconDotsVertical,
   IconPencil,
   IconPlus,
+  IconSearch,
   IconTrash,
 } from "@tabler/icons-react";
 import { DataTable } from "mantine-datatable";
-import React from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import { modals } from "@mantine/modals";
 import { DeleteConfirmModalConfig } from "@/config/ConfirmModalConfig/ConfirmModalConfig";
@@ -24,11 +29,27 @@ import useGetClients from "@/hooks/queries/client/useGetClients";
 import useDeleteClient from "@/hooks/mutates/client/useDeleteClient";
 import { AxiosError } from "axios";
 import { notifications } from "@mantine/notifications";
+import Fuse from "fuse.js";
 
 export default function ClientList() {
   const [opened, { open, close }] = useDisclosure(false);
+  const [searchKeyword, setSearchKeyword] = useState("");
+
   const getClientsApi = useGetClients();
   const deleteClientApi = useDeleteClient();
+
+  const fuse = new Fuse(getClientsApi.data?.data.clients ?? [], {
+    keys: ["name", "email", "tel", "tax_id"],
+    threshold: 0.1, // ลดค่า threshold ให้ใกล้เคียงกับการค้นหาตรงเป๊ะมากขึ้น
+    distance: 5,
+    // threshold: 0.3, // ค่าต่ำ = ตรงเป๊ะ, ค่าสูง = ค้นหาแบบ fuzzy มากขึ้น
+  });
+
+  // ใช้ Fuse ค้นหา ถ้ามี searchKeyword
+  const filteredClients =
+    searchKeyword.trim() === ""
+      ? (getClientsApi.data?.data.clients ?? [])
+      : fuse.search(searchKeyword).map((result) => result.item);
 
   type ColumnType = NonNullable<
     typeof getClientsApi.data
@@ -54,7 +75,7 @@ export default function ClientList() {
                 message: "ลบข้อมูลสําเร็จ",
                 color: "green",
                 loading: false,
-              })
+              });
               getClientsApi.refetch();
             },
             onError: (error) => {
@@ -97,12 +118,47 @@ export default function ClientList() {
           <Text size="xl" fw={700}>
             รายการลูกค้า
           </Text>
+        </div>
+
+        <div className="flex gap-3">
+          <TextInput
+            placeholder="ค้นหาด้วย ชื่อลูกค้า, อีเมล, เบอร์โทร หรือ เลขประจำตัวผู้เสียภาษี"
+            rightSection={<IconSearch size={15} />}
+            className="flex-1"
+            onChange={(e) => setSearchKeyword(e.target.value)}
+            value={searchKeyword}
+            size="md"
+          />
           <Link href="/client/create">
-            <Button leftSection={<IconPlus size={15} />}>สร้างลูกค้า</Button>
+            <Button size="md" leftSection={<IconPlus size={15} />}>
+              สร้างลูกค้า
+            </Button>
           </Link>
         </div>
+        <div className="flex items-center justify-between">
+          {getClientsApi.isLoading ? (
+            <Skeleton height={20} width={200} mt={6} />
+          ) : (
+            <Group gap="xs">
+              <Text size="sm" c="dimmed">
+                รายการลูกค้าทั้งหมด{" "}
+                <NumberFormatter
+                  value={filteredClients.length}
+                  thousandSeparator
+                />{" "}
+                รายการ
+              </Text>
+            </Group>
+          )}
+          <Group gap="sm">
+            {/* {projectSort === "asc" ? <Text size='xs' c="dimmed">เรียงลำดับวันที่สร้างเก่าสุด</Text> : <Text size='xs' c="dimmed">เรียงลำดับวันที่สร้างล่าสุด</Text>}
+                        <ActionIcon color="" variant="light" onClick={() => setProjectSort(projectSort === "asc" ? "desc" : "asc")}>
+                            {projectSort === "asc" ? <IconSortAscending size={25} /> : <IconSortDescending size={25} />}
+                        </ActionIcon> */}
+          </Group>
+        </div>
         <DataTable
-          records={getClientsApi.data?.data.clients ?? []}
+          records={filteredClients}
           columns={[
             {
               accessor: "name",
