@@ -4,7 +4,7 @@ interface Data {
   jobs: Job[];
 }
 
-interface Job {
+export interface Job {
   job_id: string;
   name: string;
   description: string;
