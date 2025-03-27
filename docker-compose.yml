@@ -1,0 +1,12 @@
+version: "3.8"
+services:
+  buildwise:
+    restart: unless-stopped
+    image: teerut26/buildwise:latest
+    ports:
+      - 3010:3000
+    environment:
+      - S3=${S3}
+      - NEXTAUTH_SECRET=${NEXTAUTH_SECRET}
+      - NEXTAUTH_URL=${NEXTAUTH_URL}
+networks: {}
